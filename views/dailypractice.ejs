@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" type="text/css" href="busticketingsystem.css">
+ <title>Bus Ticketing system</title>
+</head>
+<body>
+<div class="main">
+ <main class="app">
+  <div class="screen-wrap">
+   <section class="screen-home">
+    <div class="screen-home__form-wrap">
+     <div class="screen-home__form">
+      <h1 class="text1">Book Ticket</h1>
+      <form>
+       <div id="formdetail">
+        <div class="screen-home__location">
+         <div class="lable">
+          <figure class="icon"><img src="location (1).png"></figure>
+          <span class="text">Location Details</span>
+         </div>
+         <div class="input-wrap">
+          <div class="inside-wrap">
+           <div class="rotate-btn">
+            <figure>
+             <img src="rotate-btn.png">
+            </figure>
+           </div>
+           <div class="from">
+            <span class="inside-lable">From</span>
+            <select name="" class="input">
+                <option value="Katraj">Katraj</option>
+                <option value="BalajiNagar">Balaji Nagar</option>
+                <option value="K.K. Market">K.K. Market</option>
+                <option value="Padmavati">Padmavati</option>
+                <option value="Bibewadi">Bibewadi</option>
+                <option value="Morebaug">Morebaug</option>
+                <option value="Swargate">Swargate</option>
+              </select>
+           </div>
+           <div class="to">
+            <span class="inside-lable">To</span>
+            <select name="" class="input">
+                <option value="Katraj">Katraj</option>
+                <option value="BalajiNagar">Balaji Nagar</option>
+                <option value="K.K. Market">K.K. Market</option>
+                <option value="Padmavati">Padmavati</option>
+                <option value="Bibewadi">Bibewadi</option>
+                <option value="Morebaug">Morebaug</option>
+                <option value="Swargate">Swargate</option>
+              </select>
+           </div>
+          </div>
+         </div>
+        </div>
+        <div class="screen-home__date">
+         <div class="lable">
+          <figure class="icon1"><img src="beproject passenger.jpeg"></figure>
+          <span class="text">Passenger Details</span>
+         </div>
+         <!-- <div class="input-wrap"> -->
+          <div class="inside-wrap">
+          <!-- <div class="inside-lable-wrap"> -->
+           <!-- <div class="inside-lable-col"> -->
+            <span class="inside-lable">
+                <select name=""class="input">
+                    <option value="1">1 people</option>
+                    <option value="2">2 people</option>
+                    <option value="3">3 people</option>
+                    <option value="4">4 people</option>
+                    <option value="5">5 people</option>
+                    <option value="6">6 people</option>
+                    <option value="7">7 people</option>
+                    <option value="8">8 people</option>
+                  </select>
+            </span>
+           <!-- </div>
+          </div>
+         </div> -->
+        </div>
+       </div>
+       <div class="screen-home__submit-wrap">
+        <span class="line"></span>
+
+       </div>
+      </form>
+     </div>
+     <div class="screen-home__recent-search">
+      <div class="lable">
+       <figure class="icon2"><img src="payment.png"></figure>
+       <span class="text">Total Fair </span>
+      </div>
+      <div class="screen-home__rs-wrap">
+       <ul class="screen-home__rs-row">
+        <li class="screen-home__rs-col">
+         <div class="fare">
+            Total Fare: <span id="fare">20</span><span>rs</span>
+          </div>
+        </li>
+       </ul>
+      </div>
+      <div>
+        <button onclick="booknow()" class="pay">Pay</button>
+      </div>
+     </div>
+    </div>
+   </section>
+ </main>
+</div>
+</body>
+</html>

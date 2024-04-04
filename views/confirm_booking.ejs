@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirm Booking</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Ubuntu:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/cf268fac04.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <img src="images/logo4.png" alt="sbdhm" />
+      <a href="#" onclick="toggleDropdown()"
+        ><i class="fa-solid fa-bars fa-2xl"></i>
+      </a>
+      <div id="dropdown" class="dropdown-content">
+        <a href="index.html">Home</a>
+        <a href="about_us.html">About Us</a>
+        <a href="help2.html">Helpline</a>
+      </div>
+    </div>
+
+    <div class="container5">
+      <div class="top5">
+        <h2>Complete Booking</h2>
+      </div>
+      <div class="middle5">
+        <!-- <h2>From: <span id="source">Source</span></h2>
+        <h2 id="to">To: <span id="Destination">Dest.</span></h2> -->
+        <h2>Tickets: <span id="ticket">2</span> Seats</h2>
+        <h2>Bus Id: <span id="bus">BA123</span></h2>
+        <h2 id="tot">Total:<span id="rs">100</span></h2>
+      </div>
+
+      <!-- <div class="bottom5">
+        <button>Continue to Payment</button>
+      </div> -->
+    </div>
+    <div class="rzpcontainer">
+      <button id="rzp-button1" >Pay</button>
+    </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      // document.getElementById("rzp-button1").onclick = async function (e) {
+      //     e.preventDefault();
+
+      //     let response=await fetch("/payment",{
+      //         method:"POST",
+      //         headers:{
+      //             "Content-Type":"application/json"
+      //         },
+      //         body:JSON.stringify({
+      //             amount:500,
+      //         })
+      //     })
+
+      //     let orderData=await response.json();
+
+      //     var options = {
+      //         key: "rzp_test_x9uLgNMPfHCfBD",
+      //         amount: "500",
+      //         currency: "INR",
+      //         order_id: orderData.id,
+      //         handler: function (response) {
+      //             alert(response.razorpay_payment_id);
+      //             alert(response.razorpay_order_id);
+      //             alert(response.razorpay_signature);
+      //         },
+      //     };
+
+      //     var rzp1 = new Razorpay(options);
+      //     rzp1.open();
+      // };
+
+      const urlParams = new URLSearchParams(window.location.search);
+      document
+        .getElementById("rzp-button1")
+        .addEventListener("click", function () {
+          // Fetch the order ID from the server
+          fetch("/payment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              amount: urlParams.get("totalFare"), // Replace with the actual amount
+              currency: "INR",
+              // ... other required parameters
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const orderId = data.orderId;
+
+              const options = {
+                key: "rzp_test_gfdFb6h31THkeD", // Replace with your Razorpay Key ID
+                amount: urlParams.get("totalFare") * 100, // Amount in paise (replace with the actual amount)
+                currency: "INR",
+                name: "PMPML",
+                description: "Payment for Booking",
+                image:
+                  "https://yt3.googleusercontent.com/4OAJpaLaYpXKSEqVq1dwySLqoec1_IE2MlxchkbhkdhphkZPS3t2dtfgayEdVqIjTuFrdHTW=s900-c-k-c0x00ffffff-no-rj",
+                order_id: orderId, // Use the received order ID
+                handler: function (response) {
+                  // Handle the success response here
+                  console.log(response);
+                  window.location.href = "ticket3.html";
+                  getTickets();
+
+                },
+                prefill: {
+                  name: "User Name",
+                  email: "user@example.com",
+                  contact: "9766985654",
+                  method: "upi", // Specify the preferred UPI method
+                },
+                notes: {
+                  address: "Your Address",
+                },
+                theme: {
+                  color: "#F37254",
+                },
+              };
+
+              const rzp = new Razorpay(options);
+              rzp.on("payment.success", function (response) {
+                const paymentData = {
+                  orderId: response.razorpay_order_id,
+                  paymentId: response.razorpay_payment_id,
+                  signature: response.razorpay_signature,
+                  amount: urlParams.get("totalFare"),
+                  currency: "INR",
+                  // Add any other relevant payment details here
+                };
+
+                // Send payment data to your server for storing in MongoDB
+                fetch("/storePayment", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(paymentData),
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log("Payment details stored successfully:", data);
+                    // Redirect or do any other actions after storing payment details
+                    window.location.href = "ticket3.html";
+                  })
+                  .catch((error) => {
+                    console.error("Error storing payment details:", error);
+                  });
+              });
+              rzp.open();
+            })
+            .catch((error) => {
+              console.error("Error fetching order ID:", error);
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
