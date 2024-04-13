@@ -256,12 +256,12 @@ app.post("/passTicket.html", async (req, res) => {
     const { payment_id, amount } = payload;
 
     const msssgdata = {
-      // order_id:2546,
-      // payment_id:1212,
-      // amount:200,
-      order_id: payload.payment.entity.order_id,
-      payment_id: payload.payment.entity.id,
-      amount: payload.payment.entity.amount / 100,
+      order_id:1234,
+      payment_id:5678,
+      amount:4500,
+      // order_id: payload.payment.entity.order_id,
+      // payment_id: payload.payment.entity.id,
+      // amount: payload.payment.entity.amount / 100,
     };
     msg.create(msssgdata);
 
