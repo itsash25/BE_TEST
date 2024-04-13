@@ -253,12 +253,15 @@ app.post("/passTicket.html", async (req, res) => {
   // function to handlePaymentCaptured
 
   async function handlePaymentCaptured(payload) {
-    // const { payment_id, amount } = payload;
+    const { payment_id, amount } = payload;
 
     const msssgdata = {
-      order_id: payload.payment.entity.order_id,
-      payment_id: payload.payment.entity.id,
-      amount: payload.payment.entity.amount / 100,
+      order_id:2546,
+      payment_id:1212,
+      amount:200,
+      // order_id: payload.payment.entity.order_id,
+      // payment_id: payload.payment.entity.id,
+      // amount: payload.payment.entity.amount / 100,
     };
     msg.create(msssgdata);
 
